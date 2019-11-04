@@ -1,0 +1,86 @@
+*{margin:0;padding: 0;}
+body {background: #fff;color: #343a40;font-size: 14px;font-weight: 400;}
+h1, h2, h3, h4, h5, h6{font-weight: 400;color: #343a40;}
+ul li{list-style: none;}
+a {text-decoration: none !important;transition: all 0.4s ease 0s;font-weight: 400;outline: 0px !important;}
+a:link,a:hover,a:active,a:visited{color: #343a40 !important;}
+.login-page {
+    position: relative;
+}
+
+.login-page::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: -1;
+    background: url(../img/img4.jpg);
+    background-size: cover;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.login-page .container {
+    max-width: 1000px;
+    min-height: 100vh;
+    z-index: 999;
+    padding: 20px;
+    position: relative;
+}
+
+.login-page .form-holder {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.login-page .form-holder .info,
+.login-page .form-holder .form {
+    min-height: 50vh;
+    padding: 40px;
+    height: 100%;
+}
+
+.login-page .form-holder div[class*='col-'] {
+    padding: 0;
+}
+
+.login-page .form-holder .info {
+    background:#343a40;
+    color: #fff;
+}
+
+.login-page .form-holder .form {
+    background: #fff;
+    color:#343a40;
+}
+.login-page .form-holder .form-item{
+    width: 100%;
+    height: 100%;
+}
+.allheight{
+    height: 80%;
+}
+.login-page .form-holder .form .myheight{
+    height: 100%;
+}
+.login-page .form-holder .form .form-group {
+    position: relative;
+    margin-top: 30px;
+}
+
+@media (max-width: 991px) {
+    .login-page .info,
+    .login-page .form {
+        min-height: auto !important;
+    }
+    .login-page .info {
+        padding-top: 100px !important;
+        padding-bottom: 100px !important;
+    }
+}

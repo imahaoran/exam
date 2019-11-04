@@ -1,0 +1,80 @@
+*{margin:0;padding: 0;}
+body {background: #fff;color: #343a40;font-size: 14px;font-weight: 400;}
+h1, h2, h3, h4, h5, h6{font-weight: 400;color: #343a40;}
+/* ul li{list-style: none;} */
+a {text-decoration: none !important;transition: all 0.4s ease 0s;font-weight: 400;outline: 0px !important;color: #343a40}
+a:hover{color: #343a40}
+.container{
+    max-width: 1200px;
+}
+.navbar {
+    padding: 0rem 1rem;
+  }
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    padding: 1rem;
+}
+.navbar-nav .nav-link:hover{
+    background-color: #28a745;
+}
+.navbar-nav .active{
+    background-color: #28a745;
+}
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #28a745;
+  }
+.form-control{
+    font-size: 14px;
+}
+.w-20{
+    width: 20%;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #28a745;
+    background-color: #28a745;
+}
+.mainblock{
+    min-height: 350px;
+}
+.mainblock ul{
+    padding: 20px;
+}
+.mainblock ul li{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.errorTip{
+color: red;
+text-align: center;
+width: 100%;
+padding: 6px;
+}
+.successTip{
+color: #28a745;
+text-align: center;
+width: 100%;
+padding: 6px;
+}
+.myrelative{
+    position: relative;
+}
+.return{
+    position: absolute;
+    left: 15px;
+    top: -48px;
+    height: 48px;
+    width: 48px;
+    line-height: 48px;
+    font-size: 40px;
+}
+.return a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.return a:hover{
+    color: #28a745;
+}

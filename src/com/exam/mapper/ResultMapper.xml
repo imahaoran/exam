@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.mapper.ResultMapper">
+	<!-- 映射表 -->
+	<resultMap type="com.exam.pojo.Result" id="resultMap">
+		<id column="rid" property="rid"/>
+		<result column="eid" property="eid"/>
+		<result column="sid" property="sid"/>
+		<result column="ip" property="ip"/>
+		<result column="submitted" property="submitted"/>
+		<result column="grade" property="grade"/>
+		<association property="exam" select="com.exam.mapper.ExamMapper.selectById" column="eid"></association>
+		<association property="student" select="com.exam.mapper.StudentMapper.selectById" column="sid"></association>
+	</resultMap>
+	<!-- 查询全部 -->
+	<select id="selectAll" resultMap="resultMap">
+		select * from result
+	</select>
+	<!-- 根据eid查询 -->
+	<select id="selectByEid" resultMap="resultMap" parameterType="int">
+		select * from result where eid = #{0}
+	</select>
+	<!-- 根据sid查询 -->
+	<select id="selectBySid" resultMap="resultMap" parameterType="String">
+		select * from result where sid = #{0}
+	</select>
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.exam.pojo.Result">
+		insert into result
+		values(default,#{eid},#{sid},#{ip},#{submitted},#{grade})
+	</insert>
+	<!-- 更新 -->
+	<update id="updateById" parameterType="com.exam.pojo.Result">
+		update result set
+    	eid = #{eid},
+  	 	sid = #{sid},
+    	ip = #{ip},
+    	submitted = #{submitted},
+    	grade = #{grade} 
+  		where rid = #{rid}
+	</update>
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="int">
+  		delete from result where rid = #{0}
+	</delete>
+</mapper>
