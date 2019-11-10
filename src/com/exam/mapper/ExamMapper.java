@@ -15,4 +15,6 @@ public interface ExamMapper {
 	int updateById(Exam exam);
 	
 	int deleteById(int eid);
+	
+	List<Exam> selectActive();
 }

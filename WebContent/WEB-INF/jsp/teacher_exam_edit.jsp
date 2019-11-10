@@ -76,12 +76,21 @@
         <div class="card bg-light mt-5">
             <div class="card-body">
                 <h6>上传试卷：</h6>
-                <form action="">
+                <form action="upLoadPaper?eid=${requestScope.exam.eid}" enctype="multipart/form-data" method="post">
+                    <c:if test="${not empty requestScope.exam.epaper}">
+                        <div class="mt-3">
+                        	已上传：${requestScope.exam.epaper}
+                    	</div>
+                    </c:if>
                     <div class="mt-3">
-                        <input style="width: auto;" type="file" id="myFile" name="filename">
-                    </div>
-                    <div class="mt-3">
+                        <input style="position: relative;top: 2px;" type="file" name="file">
                         <input type="submit" class="btn btn-sm bg-success text-white" value="上传">
+                        <c:if test="${not empty requestScope.errorCodeup}">
+                        	<span class="errorTip">${requestScope.errorCodeup}</span>
+                        </c:if>
+                        <c:if test="${not empty requestScope.successCodeup}">
+                        	<span class="successTip">${requestScope.successCodeup}</span>
+                        </c:if>
                     </div>
                 </form>
 
@@ -96,14 +105,14 @@
         <div class="card bg-light mt-5">
             <div class="card-body">
                 <h6>开启考试：</h6>
-                <a href="" class="btn btn-sm bg-success text-white mt-1">暂不开启</a>
-                <a href="" class="btn btn-sm bg-success text-white mt-1">立即开启</a>
+                <a href="examManager" class="btn btn-sm bg-success text-white mt-1">暂不开启</a>
+                <a href="examStart?eid=${requestScope.exam.eid}" class="btn btn-sm bg-success text-white mt-1">立即开启</a>
             </div>
         </div>
         <div class="card bg-light mt-5">
             <div class="card-body">
-                <h6>删除考试：</h6>
-                <a href="deleteExam?eid=${requestScope.exam.eid}" class="btn btn-sm bg-danger text-white mt-1">删除考试</a><span class="errorTip">${requestScope.errorCodeDel}</span>
+                <h6 class="mb-1">删除考试：</h6>
+                <a href="deleteExam?eid=${requestScope.exam.eid}" class="btn btn-sm bg-danger text-white">删除考试</a><span class="errorTip">${requestScope.errorCodeDel}</span>
             </div>
         </div>
     </div>

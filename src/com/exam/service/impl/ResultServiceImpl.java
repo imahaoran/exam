@@ -43,4 +43,9 @@ public class ResultServiceImpl implements ResultService{
 	public int deleteResultById(int eid) throws Exception {
 		return resultMapper.deleteById(eid);
 	}
+
+	@Override
+	public Result selectBySE(String sid,int eid) {
+		return resultMapper.selectBySE(sid, eid);
+	}
 }

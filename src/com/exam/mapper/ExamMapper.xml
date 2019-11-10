@@ -26,6 +26,9 @@
 	<select id="selectById" resultMap="examMap" parameterType="int">
 		select * from exam where eid = #{0}
 	</select>
+	<select id="selectActive" resultMap="examMap">
+		select * from exam where eactive = 1;
+	</select>
 	<!-- 插入 -->
 	<insert id="insert" parameterType="com.exam.pojo.Exam">
 		insert into exam

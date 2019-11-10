@@ -85,15 +85,15 @@
                             		<c:choose>
                             			<c:when test="${empty exam.epaper}">
                             				<a class="btn btn-sm bg-secondary text-white" href="editExam?eid=${exam.eid}">编辑</a>
-                                			<a class="btn btn-sm bg-success text-light disabled" href="deleteExam?eid=${exam.eid}">开启</a>
+                                			<a class="btn btn-sm bg-success text-light disabled" href="examStart?eid=${exam.eid}">开启</a>
                             			</c:when>
                             			<c:when test="${not empty exam.epaper and not exam.eactive and not exam.efinish}">
                             				<a class="btn btn-sm bg-secondary text-white" href="editExam?eid=${exam.eid}">编辑</a>
-                                			<a class="btn btn-sm bg-success text-light" href="deleteExam?eid=${exam.eid}">开启</a>
+                                			<a class="btn btn-sm bg-success text-light" href="examStart?eid=${exam.eid}">开启</a>
                             			</c:when>
                             			<c:when test="${exam.eactive and not exam.efinish}">
                             				<a class="btn btn-sm bg-secondary text-white" href="examStatus?eid=${exam.eid}">详情</a>
-                                			<a class="btn btn-sm bg-danger text-light" href="Exam?eid=${exam.eid}">结束</a>
+                                			<a class="btn btn-sm bg-danger text-light" href="examFinish?eid=${exam.eid}">结束</a>
                             			</c:when>
                             			<c:when test="${exam.efinish and not exam.earchive}">
                             				<a class="btn btn-sm bg-secondary text-white" href="teacher_exam_status.html">打包</a>

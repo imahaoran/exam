@@ -2,6 +2,8 @@ package com.exam.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.exam.pojo.Student;
 
 public interface StudentService {
@@ -15,4 +17,6 @@ public interface StudentService {
 	int updateStudentById(Student student) throws Exception;
 	//删除学生
 	int deleteStudentById(String sid) throws Exception;
+	//上传试卷
+	void upload(int eid,String sid,String path,MultipartFile file)throws Exception;
 }

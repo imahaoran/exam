@@ -13,6 +13,20 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/font-awesome.css">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/bootstrap.bundle.js"></script>
+    <script>
+		function del(ename){
+			var x;
+			var r=confirm("确认删除"+ename+"?");
+			if (r==true){
+				
+			}
+			else{
+				
+			}
+		}
+	</script>
     <title>考试管理</title>
 </head>
 <body>
@@ -47,8 +61,8 @@
                             <th>考试名称</th>
                             <th>考试时间</th>
                             <th>创建人</th>
-                            <th>上传试卷</th>
                             <th>自动开始</th>
+                            <th>上传试卷</th>
                             <th>进行中</th>
                             <th>已结束</th>
                             <th>已归档</th>
@@ -62,22 +76,28 @@
                             	<td>${exam.ename}</td>
                            		<td>${exam.etime}</td>
                            		<td>${exam.teacher.tname}</td>
-                           		<td><c:if test="${not empty exam.epaper}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.eautostart}"><i class="fa fa-check"></i></c:if> </td>
+                           		<td><c:if test="${not empty exam.epaper}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.eactive}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.efinish}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.earchive}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.ecleared}"><i class="fa fa-check"></i></c:if> </td>
-                            	<td><a href="">删除</a></td>
+                            	<td><a href="" onclick="del('${exam.ename}')">删除</a></td>
                         	</tr>
 						</c:forEach>
-                        
                     </tbody>
                 </table>
+                <!-- 
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+                 -->
             </div>
         </div>
     </div>
-	<script src="js/jquery-3.4.1.js"></script>
-    <script src="js/bootstrap.bundle.js"></script>
 </body>
 </html>

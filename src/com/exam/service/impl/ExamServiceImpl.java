@@ -56,4 +56,9 @@ public class ExamServiceImpl implements ExamService{
 		}
 		return students;
 	}
+
+	@Override
+	public List<Exam> selectActiveExams() {
+		return examMapper.selectActive();
+	}
 }

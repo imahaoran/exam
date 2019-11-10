@@ -9,7 +9,7 @@
 		<result column="eid" property="eid"/>
 		<result column="sid" property="sid"/>
 		<result column="ip" property="ip"/>
-		<result column="submitted" property="submitted"/>
+		<result column="submitfile" property="submitfile"/>
 		<result column="grade" property="grade"/>
 		<association property="exam" select="com.exam.mapper.ExamMapper.selectById" column="eid"></association>
 		<association property="student" select="com.exam.mapper.StudentMapper.selectById" column="sid"></association>
@@ -26,10 +26,14 @@
 	<select id="selectBySid" resultMap="resultMap" parameterType="String">
 		select * from result where sid = #{0}
 	</select>
+	<!-- 根据sid和eid查询 -->
+	<select id="selectBySE" resultMap="resultMap">
+		select * from result where sid = #{param1} and eid = #{param2}
+	</select>
 	<!-- 插入 -->
 	<insert id="insert" parameterType="com.exam.pojo.Result">
 		insert into result
-		values(default,#{eid},#{sid},#{ip},#{submitted},#{grade})
+		values(default,#{eid},#{sid},#{ip},#{submitfile},#{grade})
 	</insert>
 	<!-- 更新 -->
 	<update id="updateById" parameterType="com.exam.pojo.Result">
@@ -37,7 +41,7 @@
     	eid = #{eid},
   	 	sid = #{sid},
     	ip = #{ip},
-    	submitted = #{submitted},
+    	submitfile = #{submitfile},
     	grade = #{grade} 
   		where rid = #{rid}
 	</update>

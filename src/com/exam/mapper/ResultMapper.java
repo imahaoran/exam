@@ -11,6 +11,8 @@ public interface ResultMapper {
 	List<Result> selectByEid(int eid);
 	//根据学号查询
 	List<Result> selectBySid(String sid);
+	//根据学号考试号查询
+	Result selectBySE(String sid,int eid);
 	//插入
 	int insert(Result result);
 	//更新

@@ -5,7 +5,13 @@ public class Result {
 	private int eid;
 	private String sid;
 	private String ip;
-	private boolean submitted;
+	private String submitfile;
+	public String getSubmitfile() {
+		return submitfile;
+	}
+	public void setSubmitfile(String submitfile) {
+		this.submitfile = submitfile;
+	}
 	private double grade;
 	private Exam exam;
 	private Student student;
@@ -32,12 +38,6 @@ public class Result {
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
-	}
-	public boolean isSubmitted() {
-		return submitted;
-	}
-	public void setSubmitted(boolean submitted) {
-		this.submitted = submitted;
 	}
 	public double getGrade() {
 		return grade;

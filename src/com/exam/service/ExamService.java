@@ -18,4 +18,6 @@ public interface ExamService {
 	int updateExam(Exam exam) throws Exception;
 	//根据考试id获取参与考试学生
 	List<Student> selectStudents(int eid) throws Exception;
+	//获取正在进行的考试
+	List<Exam> selectActiveExams();
 }

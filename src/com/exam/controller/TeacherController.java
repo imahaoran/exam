@@ -1,13 +1,16 @@
 package com.exam.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.exam.pojo.Exam;
 import com.exam.pojo.Result;
@@ -109,10 +112,26 @@ public class TeacherController{
 	@RequestMapping("deleteExam")
 	public String deleteExam(HttpServletRequest request) {
 		try {
-			examService.deleteExamById(Integer.parseInt(request.getParameter("eid")));
+			int eid = Integer.parseInt(request.getParameter("eid"));
+			examService.deleteExamById(eid);
+			String path = request.getServletContext().getRealPath("files")+"\\"+teacher.getTid()+"\\"+eid;
+			FileUtils.deleteDirectory(new File(path));
 			return "redirect:examManager";
 		} catch (Exception e) {
 			request.setAttribute("errorCodeDel", "删除失败");
+			return "forward:editExam";
+		}
+	}
+	@RequestMapping("upLoadPaper")
+	public String upLoadPaper(HttpServletRequest request,MultipartFile file) {
+		try {
+			int eid = Integer.parseInt(request.getParameter("eid"));
+			String path = request.getServletContext().getRealPath("files");
+			teacherService.upLoadPaper(eid, path, file);
+			request.setAttribute("successCodeup", "上传成功");
+			return "forward:editExam";
+		} catch (Exception e) {
+			request.setAttribute("errorCodeup", "上传失败");
 			return "forward:editExam";
 		}
 	}
@@ -156,14 +175,42 @@ public class TeacherController{
 			return "forward:importStudent";
 		}
 	}
+	@RequestMapping("examStart")
+	public String examStart(HttpServletRequest request) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		Exam exam = examService.selectExamById(eid);
+		exam.setEactive(true);
+		try {
+			examService.updateExam(exam);
+			return "redirect:examManager";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:examManager";
+		}
+	}
 	@RequestMapping("examStatus")
 	public String examStatus(HttpServletRequest request) {
 		int eid = Integer.parseInt(request.getParameter("eid"));
 		List<Result> results = resultService.selectResultByEid(eid);
+		Exam exam = examService.selectExamById(eid);
+		request.setAttribute("exam", exam);
 		request.setAttribute("results", results);
 		return "teacher_exam_status";
 	}
-	
+	@RequestMapping("examFinish")
+	public String examFinish(HttpServletRequest request) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		Exam exam = examService.selectExamById(eid);
+		exam.setEactive(false);
+		exam.setEfinish(true);
+		try {
+			examService.updateExam(exam);
+			return "redirect:examManager";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:examManager";
+		}
+	}
 	
 	
 	

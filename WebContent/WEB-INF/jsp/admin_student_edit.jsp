@@ -18,8 +18,13 @@
 
 <body>
     <%@ include file="admin_header.jsp" %>
-    <div class="container">
-        <h3 class="mt-5">编辑学生信息</h3>
+    <div class="container myrelative">
+    	<div class="return">
+            <a href="sManager">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+        </div>
+        <h3 class="mt-5">学生编辑</h3>
         <div class="card bg-light mt-5">
             <div class="card-body">
                 <form method="post" action="updateStudent" >

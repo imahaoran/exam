@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/font-awesome.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
-    <title>${requestScope.results[0].exam.ename}</title>
+    <title>${requestScope.exam.ename}</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                 <i class="fa fa-angle-double-left"></i>
             </a>
         </div>
-        <h3 class="mt-5">${requestScope.results[0].exam.ename}——状态</h3>
+        <h3 class="mt-5">${requestScope.exam.ename}——状态</h3>
         <div class="card bg-light mt-5">
             <div class="card-body">
             	<form class="form-inline">
@@ -49,7 +49,7 @@
                             <td>${result.student.sname}</td>
                             <c:if test="${not empty result.ip}"><td class="text-success">在线（${result.ip}）</td></c:if>
                             <c:if test="${empty result.ip}"><td>离线</td></c:if>
-                            <td><c:if test="${result.submitted}"><i class="fa fa-check"></i></c:if></td>
+                            <td><c:if test="${not empty result.submitfile}"><i class="fa fa-check"></i></c:if></td>
                         </tr>
                     	</c:forEach>
                     </tbody>

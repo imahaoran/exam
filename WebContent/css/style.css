@@ -1,7 +1,6 @@
 *{margin:0;padding: 0;}
 body {background: #fff;color: #343a40;font-size: 14px;font-weight: 400;}
 h1, h2, h3, h4, h5, h6{font-weight: 400;color: #343a40;}
-/* ul li{list-style: none;} */
 a {text-decoration: none !important;transition: all 0.4s ease 0s;font-weight: 400;outline: 0px !important;color: #343a40}
 a:hover{color: #343a40}
 .container{
@@ -77,4 +76,14 @@ padding: 6px;
 }
 .return a:hover{
     color: #28a745;
+}
+.page-link {
+    color: #28a745;
+}
+.page-link:hover {
+    color: #28a745;
+}
+.page-item.active .page-link {
+    background-color: #28a745;
+    border-color: #28a745;
 }

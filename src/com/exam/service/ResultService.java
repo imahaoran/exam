@@ -17,4 +17,6 @@ public interface ResultService {
 		int updateResultById(Result result) throws Exception;
 		//删除记录
 		int deleteResultById(int eid) throws Exception;
+		//根据学号考试号查询
+		Result selectBySE(String sid,int eid);
 }
