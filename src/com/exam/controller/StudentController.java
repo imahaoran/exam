@@ -93,7 +93,9 @@ public class StudentController {
 		File file = new File(realPath);
 		if(file.exists()) {
 			try {
-				response.setHeader("Content-Disposition", "attachment;filename="+file.getName());
+				String fileName = file.getName();
+				fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+				response.setHeader("Content-Disposition", "attachment;filename="+fileName);
 				byte[] bytes = FileUtils.readFileToByteArray(file);
 				ServletOutputStream os = response.getOutputStream();
 				os.write(bytes);
