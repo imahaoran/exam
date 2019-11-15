@@ -1,5 +1,6 @@
 package com.exam.controller;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -213,6 +214,20 @@ public class AdminController {
 		request.setAttribute("active_3", "active");
 		return "admin_exam";
 	}
+	@RequestMapping("delExam")
+	public String deleteExam(HttpServletRequest request) {
+		try {
+			int eid = Integer.parseInt(request.getParameter("eid"));
+			String rootPath = request.getServletContext().getRealPath("files");
+			String examdir = rootPath + File.separator + examService.selectExamById(eid).getTid() + File.separator + eid;
+			teacherService.deleteFile(examdir);
+			examService.deleteExamById(eid);
+			return "redirect:eManager";
+		} catch (Exception e) {
+			return "redirect:eManager";
+		}
+	}
+	
 	
 	@RequestMapping("aLogout")
 	public String alogout(HttpServletRequest request) {

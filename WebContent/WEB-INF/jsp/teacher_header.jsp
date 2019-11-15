@@ -4,7 +4,7 @@
         <div class="bg-success" style="height: 4px"></div>
         <div class="container">
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                <a class="navbar-brand" href="#">EXAM</a>
+                <a class="navbar-brand" style="padding-top: 11px;padding-bottom: 12px;" href="#">EXAM</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -16,8 +16,8 @@
                         <li class="nav-item">
                             <a class="nav-link ${requestScope.active_1}" href="examManager">考试管理</a>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
-                                系统管理
+                            <a href="" class="nav-link dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                                	系统管理
                             </a>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" href="tPwd">修改密码</a>
@@ -25,6 +25,9 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="me border border-top-0">
+                    ${sessionScope.teacher.tname}
                 </div>
             </nav>
         </div>

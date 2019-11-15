@@ -87,3 +87,10 @@ padding: 6px;
     background-color: #28a745;
     border-color: #28a745;
 }
+.me{
+    position: absolute;
+    width: 150px;
+    top: 53px;
+    right: 0px;
+    text-align: center;
+}

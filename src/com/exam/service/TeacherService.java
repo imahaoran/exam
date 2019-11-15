@@ -19,4 +19,8 @@ public interface TeacherService {
 	int deleteTeacherById(String tid)throws Exception;
 	//上传试卷
 	void upLoadPaper(int eid,String path,MultipartFile file)throws Exception;
+	//成绩打包
+	void zipExam(String srcPath,String tarName);
+	//删除文件夹
+	void deleteFile(String filePath);
 }

@@ -18,7 +18,7 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/tempusdominus-bootstrap-4.min.js"></script>
-    <title>考试管理</title>
+    <title>上机考试管理系统</title>
 </head>
 
 <body>
@@ -74,7 +74,7 @@
 							<tr>
                             	<td>${exam.ename}</td>
                            		<td>${exam.etime}</td>
-                           		<td>${sessionScope.teacher.tname}</td>
+                           		<td>${exam.teacher.tname}</td>
                            		<td><c:if test="${exam.eautostart}"><i class="fa fa-check"></i></c:if></td>
                            		<td><c:if test="${not empty exam.epaper}"><i class="fa fa-check"></i></c:if></td>
                            		<td><c:if test="${exam.eactive}"><i class="fa fa-check"></i></c:if></td>
@@ -96,17 +96,18 @@
                                 			<a class="btn btn-sm bg-danger text-light" href="examFinish?eid=${exam.eid}">结束</a>
                             			</c:when>
                             			<c:when test="${exam.efinish and not exam.earchive}">
-                            				<a class="btn btn-sm bg-secondary text-white" href="teacher_exam_status.html">打包</a>
-                                			<a class="btn btn-sm bg-secondary text-light" href="teacher_grade.html">成绩</a>
-                                			<a class="btn btn-sm bg-warning text-light disabled" href="">清理</a>
+                            				<a class="btn btn-sm bg-secondary text-white" href="downloadPapers?eid=${exam.eid}">打包</a>
+                                			<a class="btn btn-sm bg-secondary text-light" href="grade?eid=${exam.eid}">成绩</a>
+                                			<a class="btn btn-sm bg-warning text-light disabled" href="clearExam?eid=${exam.eid}">清理</a>
                             			</c:when>
                             			<c:when test="${exam.earchive and not exam.ecleared}">
-                            				<a class="btn btn-sm bg-secondary text-white" href="teacher_exam_status.html">打包</a>
-                                			<a class="btn btn-sm bg-secondary text-light" href="teacher_grade.html">成绩</a>
-                                			<a class="btn btn-sm bg-warning text-light" href="">清理</a>
+                            				<a class="btn btn-sm bg-secondary text-white" href="downloadPapers?eid=${exam.eid}">打包</a>
+                                			<a class="btn btn-sm bg-secondary text-light" href="grade?eid=${exam.eid}">成绩</a>
+                                			<a class="btn btn-sm bg-warning text-light" href="clearExam?eid=${exam.eid}">清理</a>
                             			</c:when>
                             			<c:when test="${exam.ecleared}">
-                            				<a class="btn btn-sm badge-danger text-light" href="deleteExam?eid=${exam.eid}">删除</a>
+                            				<a class="btn btn-sm badge-danger text-light" 
+                            				onclick="if(confirm('与该考试相关的所有信息将全部消失。\n确认删除?')) window.location.href='deleteExam?eid=${exam.eid}'; else return false;">删除</a>
                             			</c:when>
                             		</c:choose>
                             	</td>

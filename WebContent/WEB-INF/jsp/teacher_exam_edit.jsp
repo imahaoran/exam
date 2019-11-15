@@ -18,7 +18,7 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/tempusdominus-bootstrap-4.min.js"></script>
-    <title>考试编辑</title>
+    <title>上机考试管理系统</title>
 </head>
 
 <body>
@@ -44,9 +44,8 @@
                                 data-toggle="datetimepicker" data-target="#datetimepicker1" name="etime" value="${requestScope.exam.etime}" />
                             <script type="text/javascript">
                                 $(function () {
-                                    $('#datetimepicker1').datetimepicker({
-                                        format: 'YYYY-MM-DD HH:mm'
-                                    });
+                                	var date = moment($('#datetimepicker1').val(),'YYYY-MM-DD HH:mm').toDate();
+                                    $('#datetimepicker1').datetimepicker({date:date,format: 'YYYY-MM-DD HH:mm'})
                                 });
                             </script>
                         </div>

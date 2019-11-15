@@ -1,7 +1,14 @@
 package com.exam.service.impl;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.annotation.Resource;
 
@@ -54,6 +61,84 @@ public class TeacherServiceImpl implements TeacherService{
 		FileUtils.copyInputStreamToFile(file.getInputStream(), new File(filepath));
 		exam.setEpaper(exam.getTid()+"\\"+exam.getEid()+"\\"+"paper"+"\\"+filename);
 		examMapper.updateById(exam);
+	}
+	@Override
+	public void zipExam(String srcPath,String tarName) {
+		File srcfile = new File(srcPath);
+		File tarFile = new File(tarName);
+		String rootName = tarFile.getName();
+		int length = rootName.length();
+		length = length - 4;
+		rootName = rootName.substring(0,length);
+ 		if(!srcfile.exists()) {
+			System.out.println("Ô´²»´æÔÚ");
+			return;
+		}
+		ZipOutputStream zos = null;
+		try {
+			zos = new ZipOutputStream(new FileOutputStream(tarFile));
+			compressDir(zos, srcfile,rootName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}finally {
+			if(zos!=null) {
+				try {
+					zos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	private void compressDir(ZipOutputStream zos, File srcFile, String parentDir) {
+		FileInputStream fin = null;
+		BufferedInputStream bin = null;
+		File[] files = srcFile.listFiles();
+		try {
+			for (File file : files) {
+				if (file.isFile()) {
+					ZipEntry zipEntry = new ZipEntry(parentDir + File.separator + file.getName());
+					zos.putNextEntry(zipEntry);
+					fin = new FileInputStream(file);
+					bin = new BufferedInputStream(fin);
+					int x = 0;
+					while ((x = bin.read()) != -1) {
+						zos.write(x);
+					}
+				} else {
+					compressDir(zos, file, parentDir + File.separator + file.getName());
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bin != null) {
+				try {
+					bin.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	@Override
+	public void deleteFile(String filePath) {
+		File file = new File(filePath);
+		if(!file.exists()) {
+			return;
+		}
+		delete(file);
+	}
+	private void delete(File file) {
+		if(file.isFile()) {
+			file.delete();
+		}else {
+			File[] files = file.listFiles();
+			for (File f : files) {
+				delete(f);
+			}
+			file.delete();
+		}
 	}
 
 

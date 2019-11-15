@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/font-awesome.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
-    <title>学生名单</title>
+    <title>上机考试管理系统</title>
 </head>
 
 <body>
@@ -74,11 +74,11 @@
                         </tr>
                     </thead>
                     <tbody>
-	                    <c:forEach items="${requestScope.students}" var="student">
+	                    <c:forEach items="${requestScope.results}" var="result">
 	                    	<tr>
-                            	<td>${student.sid}</td>
-                           		<td>${student.sname}</td>
-                           		<td>删除</td>
+                            	<td>${result.student.sid}</td>
+                           		<td>${result.student.sname}</td>
+                           		<td><a href="deleteResult?rid=${result.rid}&&eid=${requestScope.exam.eid}">编辑</a></td>
                         	</tr>
 	                    </c:forEach>
                     </tbody>

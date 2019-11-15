@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/font-awesome.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
-    <title>${requestScope.exam.ename}</title>
+    <title>上机考试管理系统</title>
 </head>
 
 <body>

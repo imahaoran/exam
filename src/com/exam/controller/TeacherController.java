@@ -1,10 +1,13 @@
 package com.exam.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -138,15 +141,10 @@ public class TeacherController{
 	@RequestMapping("importStudent")
 	public String importStudent(HttpServletRequest request) {
 		int eid = Integer.parseInt(request.getParameter("eid"));
+		List<Result> results = resultService.selectResultByEid(eid);
 		Exam exam = examService.selectExamById(eid);
-		List<Student> students;
-		try {
-			students = examService.selectStudents(eid);
-			request.setAttribute("students", students);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		request.setAttribute("exam", exam);
+		request.setAttribute("results", results);
 		return "teacher_import";
 	}
 	@RequestMapping("addResult")
@@ -156,6 +154,12 @@ public class TeacherController{
 		String sname = request.getParameter("sname");
 		Student student = studentService.selectStudentById(sid);
 		if(student!=null&&student.getSname().equals(sname)) {
+			Result r = resultService.selectBySE(sid, eid);
+			if(r!=null) {
+				request.setAttribute("errorCode", "该生已添加");
+				request.setAttribute("eid", eid);
+				return "forward:importStudent";
+			}
 			Result result = new Result();
 			result.setEid(eid);
 			result.setSid(sid);
@@ -172,6 +176,17 @@ public class TeacherController{
 		}else {
 			request.setAttribute("errorCode", "无此学生");
 			request.setAttribute("eid", eid);
+			return "forward:importStudent";
+		}
+	}
+	@RequestMapping("deleteResult")
+	public String deleteResult(HttpServletRequest request) {
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		try {
+			resultService.deleteResultById(rid);
+			return "forward:importStudent";
+		} catch (Exception e) {
+			e.printStackTrace();
 			return "forward:importStudent";
 		}
 	}
@@ -211,9 +226,83 @@ public class TeacherController{
 			return "redirect:examManager";
 		}
 	}
-	
-	
-	
+	@RequestMapping("downloadPapers")
+	public void downloadPapers(HttpServletRequest request,HttpServletResponse response) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		Exam exam = examService.selectExamById(eid);
+		String rootPath = request.getServletContext().getRealPath("files");
+		String examdir = rootPath + File.separator + teacher.getTid() + File.separator + eid;
+		String zipFile = rootPath + File.separator + teacher.getTid() + File.separator + exam.getEname() + "["+eid+"]" + ".zip";
+		teacherService.zipExam(examdir, zipFile);
+		File file = new File(zipFile);
+		if(file.exists()) {
+			try {
+				String fileName = file.getName();
+				fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+				response.setHeader("Content-Disposition", "attachment;filename="+fileName);
+				byte[] bytes = FileUtils.readFileToByteArray(file);
+				ServletOutputStream os = response.getOutputStream();
+				os.write(bytes);
+				os.flush();
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.debug("下载失败");
+			}
+		}else {
+			logger.debug("文件不存在");
+		}
+	}
+	@RequestMapping("grade")
+	public String grade(HttpServletRequest request) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		List<Result> results = resultService.selectResultByEid(eid);
+		Exam exam = examService.selectExamById(eid);
+		request.setAttribute("exam", exam);
+		request.setAttribute("results", results);
+		return "teacher_grade";
+	}
+	@RequestMapping("importGrade")
+	public String importGrade(HttpServletRequest request) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		Exam exam = examService.selectExamById(eid);
+		List<Result> results = resultService.selectResultByEid(eid);
+		try {
+			for (Result result : results) {
+				double grade = Double.parseDouble(request.getParameter(String.valueOf(result.getRid())));
+				result.setGrade(grade);
+				resultService.updateResultById(result);
+			}
+			exam.setEarchive(true);
+			examService.updateExam(exam);
+			request.setAttribute("exam", exam);
+			request.setAttribute("results", results);
+			request.setAttribute("successCode", "保存成功");
+			return "teacher_grade";
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("exam", exam);
+			request.setAttribute("results", results);
+			request.setAttribute("errorCode", "保存失败");
+			return "teacher_grade";
+		}
+	}
+	@RequestMapping("clearExam")
+	public String clearExam(HttpServletRequest request) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		Exam exam = examService.selectExamById(eid);
+		String rootPath = request.getServletContext().getRealPath("files");
+		String examdir = rootPath + File.separator + teacher.getTid() + File.separator + eid;
+		try {
+			teacherService.deleteFile(examdir);
+			exam.setEcleared(true);
+			examService.updateExam(exam);
+			return "redirect:examManager";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:examManager";
+		}
+	}
 	
 	
 	

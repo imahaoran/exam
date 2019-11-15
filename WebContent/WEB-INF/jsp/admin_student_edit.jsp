@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/font-awesome.css">
-    <title>编辑教师信息</title>
+    <title>上机考试管理系统</title>
 </head>
 
 <body>

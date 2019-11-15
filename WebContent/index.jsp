@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>index</title>
+<title>上机考试管理系统</title>
 </head>
 <body>
 <% response.sendRedirect("login.jsp"); %>

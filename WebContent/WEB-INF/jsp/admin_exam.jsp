@@ -20,14 +20,14 @@
 			var x;
 			var r=confirm("确认删除"+ename+"?");
 			if (r==true){
-				
+				return true;
 			}
 			else{
-				
+				return false;
 			}
 		}
 	</script>
-    <title>考试管理</title>
+    <title>上机考试管理系统</title>
 </head>
 <body>
 	<%@ include file="admin_header.jsp" %>
@@ -82,7 +82,10 @@
                            		<td><c:if test="${exam.efinish}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.earchive}"><i class="fa fa-check"></i></c:if> </td>
                            		<td><c:if test="${exam.ecleared}"><i class="fa fa-check"></i></c:if> </td>
-                            	<td><a href="" onclick="del('${exam.ename}')">删除</a></td>
+                            	<td>
+                            		<c:if test="${exam.eactive}"><span>考试进行中</span></c:if>
+                            		<c:if test="${!exam.eactive}"><span style="cursor:pointer" onclick="if(confirm('与该考试相关的所有信息将全部消失。\n确认删除?')) window.location.href='delExam?eid=${exam.eid}'; else return false;">删除</span></c:if>
+                            	</td>
                         	</tr>
 						</c:forEach>
                     </tbody>

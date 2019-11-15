@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
-    <title>成绩查询</title>
+    <title>上机考试管理系统</title>
 </head>
 
 <body>
