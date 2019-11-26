@@ -105,7 +105,12 @@
             <div class="card-body">
                 <h6>开启考试：</h6>
                 <a href="examManager" class="btn btn-sm bg-success text-white mt-1">暂不开启</a>
-                <a href="examStart?eid=${requestScope.exam.eid}" class="btn btn-sm bg-success text-white mt-1">立即开启</a>
+                <c:if test="${not empty requestScope.exam.epaper}">
+                	<a href="examStart?eid=${requestScope.exam.eid}" class="btn btn-sm bg-success text-white mt-1">立即开启</a>
+                </c:if>
+                <c:if test="${empty requestScope.exam.epaper}">
+                	<a href="examStart?eid=${requestScope.exam.eid}" class="btn btn-sm bg-success text-white mt-1 disabled">立即开启</a>
+                </c:if>
             </div>
         </div>
         <div class="card bg-light mt-5">

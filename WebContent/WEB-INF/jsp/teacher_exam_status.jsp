@@ -29,8 +29,9 @@
         <h3 class="mt-5">${requestScope.exam.ename}——状态</h3>
         <div class="card bg-light mt-5">
             <div class="card-body">
-            	<form class="form-inline">
-                    <textarea class="form-control w-75" rows="1" placeholder="通知信息"></textarea>
+            	<form class="form-inline" method="post" action="sendInfo">
+            		<input type="hidden" name="eid" value="${requestScope.exam.eid}">
+                    <textarea class="form-control w-75" rows="1" name="info" placeholder="通知信息"></textarea>
                     <input type="submit" class="btn btn-sm bg-success text-white ml-5" value="发送">
                 </form>
                 <table class="table table-hover mt-3">

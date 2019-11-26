@@ -14,6 +14,22 @@
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
     <title>上机考试管理系统</title>
+    <script>
+    $(document).ready(function(){
+    	var getting = {
+    			type:"get",
+    	        url:"getInfo?eid=${requestScope.result.exam.eid}",
+    	        success:function(res) {
+    	          $('#info').html(res);
+    	          setTimeout(function(){$.ajax(getting);},5000);
+    	          var obj = document.getElementById("info");
+                  obj.scrollTop = obj.scrollHeight;
+    	        }
+    	};
+    	$.ajax(getting)
+    });
+            
+   	</script>
 </head>
 
 <body>
@@ -28,8 +44,10 @@
         <div class="card bg-light mt-5">
             <div class="card-body">
                 <div class="form-group mt-3">
-                    <textarea class="form-control" rows="5" id="comment" readonly="readonly"
-                        placeholder="当前没有通知"></textarea>
+                    <textarea class="form-control" rows="5" id="info" readonly="readonly" 
+                    onpropertychange="this.scrollTop = this.scrollHeight"
+                    οnfοcus="this.scrollTop = this.scrollHeight" 
+                    placeholder="当前没有通知"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-6">

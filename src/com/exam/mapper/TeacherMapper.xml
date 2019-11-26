@@ -7,6 +7,13 @@
 	<select id="selectAll" resultType="com.exam.pojo.Teacher">
 		select * from teacher
 	</select>
+	<!-- 分页查询 -->
+	<select id="selectCount" resultType="int">
+		select count(*) from teacher
+	</select>
+	<select id="selectByPage" resultType="com.exam.pojo.Teacher" parameterType="com.exam.pojo.PageInfo">
+		select * from teacher limit #{start},#{size}
+	</select>
 	<!-- 根据id查询 -->
 	<select id="selectById" resultType="com.exam.pojo.Teacher" parameterType="String">
 		select * from teacher where tid = #{0}

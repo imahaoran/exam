@@ -20,7 +20,7 @@
                             <a class="nav-link ${requestScope.active_2}" href="grades">成绩查询</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="" class="nav-link dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                            <a href="" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
                                 	系统管理
                             </a>
                             <div class="dropdown-menu">

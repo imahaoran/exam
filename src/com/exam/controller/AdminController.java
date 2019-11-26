@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.exam.pojo.Exam;
@@ -32,8 +33,10 @@ public class AdminController {
 	public String login(HttpServletRequest request) {
 		logger.debug("----------"+request.getParameter("username")+"发起登录");
 		Teacher teacher = teacherService.selectTeacherById(request.getParameter("username"));
+		String password = request.getParameter("password");
+		password = DigestUtils.md5DigestAsHex(password.getBytes());
 		if(teacher!=null&&teacher.isTadmin()) {
-			if(teacher.getTpwd().equals(request.getParameter("password"))) {
+			if(teacher.getTpwd().equals(password)) {
 				logger.debug("----------登录成功");
 				request.getSession().setAttribute("admin", teacher);
 				return "redirect:aMain";
@@ -73,7 +76,7 @@ public class AdminController {
 		Teacher teacher = new Teacher();
 		teacher.setTid(request.getParameter("tid"));
 		teacher.setTname(request.getParameter("tname"));
-		teacher.setTpwd(request.getParameter("tpwd"));
+		teacher.setTpwd(DigestUtils.md5DigestAsHex(request.getParameter("tpwd").getBytes()));
 		teacher.setTadmin(Boolean.parseBoolean(request.getParameter("tadmin")));
 		try {
 			if(teacherService.insertTeacher(teacher)>0){
@@ -100,7 +103,13 @@ public class AdminController {
 		Teacher teacher = new Teacher();
 		teacher.setTid(request.getParameter("tid"));
 		teacher.setTname(request.getParameter("tname"));
-		teacher.setTpwd(request.getParameter("tpwd"));
+		String password = request.getParameter("tpwd");
+		if(password.length()==32) {
+			
+		}else {
+			password = DigestUtils.md5DigestAsHex(password.getBytes());
+		}
+		teacher.setTpwd(password);
 		teacher.setTadmin(Boolean.parseBoolean(request.getParameter("tadmin")));
 		try {
 			if(teacherService.updateTeacherById(teacher)>0){
@@ -150,7 +159,7 @@ public class AdminController {
 		Student student = new Student();
 		student.setSid(request.getParameter("sid"));
 		student.setSname(request.getParameter("sname"));
-		student.setSpwd(request.getParameter("spwd"));
+		student.setSpwd(DigestUtils.md5DigestAsHex(request.getParameter("spwd").getBytes()));
 		try {
 			if(studentService.insertStudent(student)>0){
 				return "redirect:sManager";
@@ -176,7 +185,13 @@ public class AdminController {
 		Student student = new Student();
 		student.setSid(request.getParameter("sid"));
 		student.setSname(request.getParameter("sname"));
-		student.setSpwd(request.getParameter("spwd"));
+		String password = request.getParameter("spwd");
+		if(password.length()==32) {
+			
+		}else {
+			password = DigestUtils.md5DigestAsHex(password.getBytes());
+		}
+		student.setSpwd(password);
 		try {
 			if(studentService.updateStudentById(student)>0){
 				return "redirect:sManager";

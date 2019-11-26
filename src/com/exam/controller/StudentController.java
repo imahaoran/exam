@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,8 +37,10 @@ public class StudentController {
 	public String login(HttpServletRequest request) {
 		logger.debug("----------"+request.getParameter("username")+"发起登录");
 		student = studentService.selectStudentById(request.getParameter("username"));
+		String password = request.getParameter("password");
+		password = DigestUtils.md5DigestAsHex(password.getBytes());
 		if(student!=null) {
-			if(student.getSpwd().equals(request.getParameter("password"))) {
+			if(student.getSpwd().equals(password)) {
 				logger.debug("----------登录成功");
 				request.getSession().setAttribute("student", student);
 				return "redirect:sMain";
@@ -138,6 +141,8 @@ public class StudentController {
 	public String tUpdatePwd(HttpServletRequest request) {
 		String oldpwd = request.getParameter("oldpwd");
 		String newpwd = request.getParameter("newpwd1");
+		oldpwd = DigestUtils.md5DigestAsHex(oldpwd.getBytes());
+		newpwd = DigestUtils.md5DigestAsHex(newpwd.getBytes());
 		if(student.getSpwd().equals(oldpwd)) {
 			try {
 				student.setSpwd(newpwd);

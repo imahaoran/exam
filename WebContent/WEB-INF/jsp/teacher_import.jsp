@@ -78,7 +78,7 @@
 	                    	<tr>
                             	<td>${result.student.sid}</td>
                            		<td>${result.student.sname}</td>
-                           		<td><a href="deleteResult?rid=${result.rid}&&eid=${requestScope.exam.eid}">编辑</a></td>
+                           		<td><a href="deleteResult?rid=${result.rid}&&eid=${requestScope.exam.eid}">删除</a></td>
                         	</tr>
 	                    </c:forEach>
                     </tbody>

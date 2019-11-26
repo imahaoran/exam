@@ -2,9 +2,11 @@ package com.exam.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,8 +43,10 @@ public class TeacherController{
 	public String login(HttpServletRequest request) {
 		logger.debug("----------"+request.getParameter("username")+"发起登录");
 		teacher = teacherService.selectTeacherById(request.getParameter("username"));
+		String password = request.getParameter("password");
+		password = DigestUtils.md5DigestAsHex(password.getBytes());
 		if(teacher!=null) {
-			if(teacher.getTpwd().equals(request.getParameter("password"))) {
+			if(teacher.getTpwd().equals(password)) {
 				logger.debug("----------登录成功");
 				request.getSession().setAttribute("teacher", teacher);
 				return "redirect:tMain";
@@ -212,12 +217,44 @@ public class TeacherController{
 		request.setAttribute("results", results);
 		return "teacher_exam_status";
 	}
+	@RequestMapping("sendInfo")
+	public String sendInfo(HttpServletRequest request,HttpServletResponse response) {
+		String message = "info"+request.getParameter("eid");
+		ServletContext servletContext = request.getServletContext();
+		StringBuilder messages = (StringBuilder)servletContext.getAttribute(message);
+		if(messages==null) {
+			messages = new StringBuilder();
+			servletContext.setAttribute(message, messages);
+		}
+		messages.append(teacher.getTname()+"老师："+request.getParameter("info")+"\n"); 
+		return "redirect:examStatus"+"?eid="+request.getParameter("eid");
+	}
+	@RequestMapping("getInfo")
+	public void getInfo(HttpServletRequest request,HttpServletResponse response) {
+		String message = "info"+request.getParameter("eid");
+		ServletContext servletContext = request.getServletContext();
+		StringBuilder messages = (StringBuilder)servletContext.getAttribute(message);
+		if(messages==null) {
+			messages = new StringBuilder();
+		}
+		try {
+			PrintWriter out = response.getWriter();
+			out.write(messages.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@RequestMapping("examFinish")
 	public String examFinish(HttpServletRequest request) {
 		int eid = Integer.parseInt(request.getParameter("eid"));
 		Exam exam = examService.selectExamById(eid);
 		exam.setEactive(false);
 		exam.setEfinish(true);
+		ServletContext servletContext = request.getServletContext();
+		Object sb = servletContext.getAttribute("infp"+eid);
+		if(sb!=null) {
+			servletContext.removeAttribute("infp"+eid);
+		}
 		try {
 			examService.updateExam(exam);
 			return "redirect:examManager";
@@ -316,6 +353,8 @@ public class TeacherController{
 	public String tUpdatePwd(HttpServletRequest request) {
 		String oldpwd = request.getParameter("oldpwd");
 		String newpwd = request.getParameter("newpwd1");
+		oldpwd = DigestUtils.md5DigestAsHex(oldpwd.getBytes());
+		newpwd = DigestUtils.md5DigestAsHex(newpwd.getBytes());
 		if(teacher.getTpwd().equals(oldpwd)) {
 			try {
 				teacher.setTpwd(newpwd);

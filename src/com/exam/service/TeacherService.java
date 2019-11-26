@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.exam.pojo.PageInfo;
 import com.exam.pojo.Teacher;
 
 public interface TeacherService {
@@ -23,4 +24,6 @@ public interface TeacherService {
 	void zipExam(String srcPath,String tarName);
 	//É¾³ýÎÄ¼þ¼Ð
 	void deleteFile(String filePath);
+	
+	PageInfo selectPage(PageInfo pageInfo);
 }

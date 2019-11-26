@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.exam.mapper.ExamMapper;
 import com.exam.mapper.TeacherMapper;
 import com.exam.pojo.Exam;
+import com.exam.pojo.PageInfo;
 import com.exam.pojo.Teacher;
 import com.exam.service.TeacherService;
 @Service
@@ -139,6 +140,11 @@ public class TeacherServiceImpl implements TeacherService{
 			}
 			file.delete();
 		}
+	}
+	@Override
+	public PageInfo selectPage(PageInfo pageInfo) {
+		
+		return null;
 	}
 
 
