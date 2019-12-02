@@ -32,7 +32,7 @@
 		<property name="exceptionMappings">
 			<props>
 				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">
-					error2
+					error
 				</prop>
 			</props>
 		</property>

@@ -19,5 +19,5 @@ public interface TeacherMapper {
 	
 	List<Teacher> selectByPage(PageInfo pageInfo);
 	
-	int selectCount();
+	int selectCount();	
 }

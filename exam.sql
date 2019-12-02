@@ -11,7 +11,7 @@
  Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 12/11/2019 16:08:57
+ Date: 01/12/2019 15:13:13
 */
 
 SET NAMES utf8mb4;
@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student`  (
   `sid` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学号',
   `sname` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '姓名',
-  `spwd` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+  `spwd` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   PRIMARY KEY (`sid`) USING BTREE,
   INDEX `sid`(`sid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `tid` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师号',
   `tname` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师真实姓名',
-  `tpwd` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师登录密码',
+  `tpwd` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师登录密码',
   `tadmin` tinyint(1) NULL DEFAULT 0 COMMENT '是否是管理员',
   PRIMARY KEY (`tid`) USING BTREE,
   INDEX `tid`(`tid`) USING BTREE

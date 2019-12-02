@@ -13,6 +13,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.exam.pojo.Exam;
+import com.exam.pojo.PageInfo;
 import com.exam.pojo.Student;
 import com.exam.pojo.Teacher;
 import com.exam.service.ExamService;
@@ -60,8 +61,15 @@ public class AdminController {
 	
 	@RequestMapping("tManager")
 	public String teacherManager(HttpServletRequest request) {
-		List<Teacher> teachers = teacherService.selectAllTeacher();
-		request.setAttribute("teachers", teachers);
+//		List<Teacher> teachers = teacherService.selectAllTeacher();
+		PageInfo pageInfo = new PageInfo();
+		String pageNumberString = request.getParameter("pageNumber");
+		if(pageNumberString!=null) {
+			int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+			pageInfo.setPageNumber(pageNumber);
+		}
+		pageInfo = teacherService.selectByPage(pageInfo);
+		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("active_1", "active");
 		return "admin_teacher";
 	}
@@ -143,8 +151,15 @@ public class AdminController {
 	
 	@RequestMapping("sManager")
 	public String studentManager(HttpServletRequest request) {
-		List<Student> students = studentService.selectAllStudent();
-		request.setAttribute("students", students);
+//		List<Student> students = studentService.selectAllStudent();
+		PageInfo pageInfo = new PageInfo();
+		String pageNumberString = request.getParameter("pageNumber");
+		if(pageNumberString!=null) {
+			int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+			pageInfo.setPageNumber(pageNumber);
+		}
+		pageInfo = studentService.selectByPage(pageInfo);
+		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("active_2", "active");
 		return "admin_student";
 	}

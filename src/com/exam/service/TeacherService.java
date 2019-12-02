@@ -25,5 +25,5 @@ public interface TeacherService {
 	//É¾³ýÎÄ¼þ¼Ð
 	void deleteFile(String filePath);
 	
-	PageInfo selectPage(PageInfo pageInfo);
+	PageInfo selectByPage(PageInfo pageInfo);
 }

@@ -76,7 +76,7 @@
                         </tr>
                     </thead>
                     <tbody>
-						<c:forEach items="${requestScope.students}" var="student">
+						<c:forEach items="${requestScope.pageInfo.list}" var="student">
 							<tr>
                             	<td>${student.sid}</td>
                            		<td>${student.sname}</td>
@@ -86,15 +86,12 @@
 						</c:forEach>
                     </tbody>
                 </table>
-                <!-- 
                 <ul class="pagination">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item <c:if test='${requestScope.pageInfo.pageNumber <= 1}'>disabled</c:if>"><a class="page-link" href="sManager?pageNumber=${requestScope.pageInfo.pageNumber - 1}">上一页</a></li>
+                    <li class="page-item"><a class="page-link" href="#">${requestScope.pageInfo.pageNumber} / ${requestScope.pageInfo.pageTotal}</a></li>
+                    <li class="page-item <c:if test='${requestScope.pageInfo.pageNumber >= requestScope.pageInfo.pageTotal}'>disabled</c:if>"><a class="page-link" href="sManager?pageNumber=${requestScope.pageInfo.pageNumber + 1}">下一页</a></li>
+                    
                 </ul>
-                 -->
             </div>
         </div>
     </div>

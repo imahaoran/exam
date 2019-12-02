@@ -142,9 +142,12 @@ public class TeacherServiceImpl implements TeacherService{
 		}
 	}
 	@Override
-	public PageInfo selectPage(PageInfo pageInfo) {
-		
-		return null;
+	public PageInfo selectByPage(PageInfo pageInfo) {
+		int count = teacherMapper.selectCount();
+		pageInfo.setPageTotal(count%pageInfo.getPageSize()==0?count/pageInfo.getPageSize():count/pageInfo.getPageSize()+1);
+		pageInfo.setPageStart((pageInfo.getPageNumber()-1)*pageInfo.getPageSize());
+		pageInfo.setList(teacherMapper.selectByPage(pageInfo));
+		return pageInfo;
 	}
 
 

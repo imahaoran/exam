@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.exam.mapper.ExamMapper;
 import com.exam.mapper.StudentMapper;
 import com.exam.pojo.Exam;
+import com.exam.pojo.PageInfo;
 import com.exam.pojo.Result;
 import com.exam.pojo.Student;
 import com.exam.service.ResultService;
@@ -62,6 +63,15 @@ public class StudentServiceImpl implements StudentService{
 		Result result = resultService.selectBySE(sid, eid);
 		result.setSubmitfile(filename);
 		resultService.updateResultById(result);
+	}
+
+	@Override
+	public PageInfo selectByPage(PageInfo pageInfo) {
+		int count = studentMapper.selectCount();
+		pageInfo.setPageTotal(count%pageInfo.getPageSize()==0?count/pageInfo.getPageSize():count/pageInfo.getPageSize()+1);
+		pageInfo.setPageStart((pageInfo.getPageNumber()-1)*pageInfo.getPageSize());
+		pageInfo.setList(studentMapper.selectByPage(pageInfo));
+		return pageInfo;
 	}
 
 }

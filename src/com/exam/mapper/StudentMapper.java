@@ -2,6 +2,7 @@ package com.exam.mapper;
 
 import java.util.List;
 
+import com.exam.pojo.PageInfo;
 import com.exam.pojo.Student;
 
 public interface StudentMapper {
@@ -15,4 +16,7 @@ public interface StudentMapper {
 	int updateById(Student student);
 	
 	int deleteById(String sid);
+	
+	int selectCount();
+	List<Student> selectByPage(PageInfo pageInfo);
 }

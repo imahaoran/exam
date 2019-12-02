@@ -11,6 +11,13 @@
 	<select id="selectById" resultType="com.exam.pojo.Student" parameterType="String">
 		select * from student where sid = #{0}
 	</select>
+	<!-- 分页查询 -->
+	<select id="selectCount" resultType="int">
+		select count(*) from student
+	</select>
+	<select id="selectByPage" resultType="com.exam.pojo.Student" parameterType="com.exam.pojo.PageInfo">
+		select * from student limit #{pageStart},#{pageSize}
+	</select>
 	<!-- 插入 -->
 	<insert id="insert" parameterType="com.exam.pojo.Student">
 		insert into student
