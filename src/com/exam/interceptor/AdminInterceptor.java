@@ -6,10 +6,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.exam.pojo.Teacher;
+
 public class AdminInterceptor implements HandlerInterceptor{
 	@Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-		return false;
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse HttpServletResponse, Object o) throws Exception {
+		Teacher admin = (Teacher)httpServletRequest.getSession().getAttribute("admin");
+		if(admin==null) {
+			HttpServletResponse.sendRedirect("login.jsp");
+			return false;
+		}else {
+			return true;
+		}
     }
 
     @Override

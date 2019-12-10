@@ -11,7 +11,7 @@
  Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 01/12/2019 15:13:13
+ Date: 02/12/2019 20:06:37
 */
 
 SET NAMES utf8mb4;
@@ -71,16 +71,16 @@ CREATE TABLE `student`  (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1710121001', '李寻欢', '1710121001');
-INSERT INTO `student` VALUES ('1710121002', '楚留香', '1710121002');
-INSERT INTO `student` VALUES ('1710121003', '陆小凤', '1710121003');
-INSERT INTO `student` VALUES ('1710121004', '叶孤城', '1710121004');
-INSERT INTO `student` VALUES ('1710121005', '花满楼', '1710121005');
-INSERT INTO `student` VALUES ('1710121006', '江别鹤', '1710121006');
-INSERT INTO `student` VALUES ('1710121007', '荆无命', '1710121007');
-INSERT INTO `student` VALUES ('1710121008', '燕十三', '1710121008');
-INSERT INTO `student` VALUES ('1710121009', '司空摘星', '1710121009');
-INSERT INTO `student` VALUES ('1710121010', '西门吹雪', '1710121010');
+INSERT INTO `student` VALUES ('1710121001', '李寻欢', '0fcc8e9f9796830fdc1bba43c0177813');
+INSERT INTO `student` VALUES ('1710121002', '楚留香', '0f800d52a65ead534337c0a26f64c6a5');
+INSERT INTO `student` VALUES ('1710121003', '陆小凤', '78ca33e6fa0d7a883b5b8bfe13bf105a');
+INSERT INTO `student` VALUES ('1710121004', '叶孤城', '7659bce9afa515d762d39ca0f5a7b96d');
+INSERT INTO `student` VALUES ('1710121005', '花满楼', '73ff194dab80a6addfd9542884d211b7');
+INSERT INTO `student` VALUES ('1710121006', '江别鹤', 'bb78f87de24629c5510e1865a3121821');
+INSERT INTO `student` VALUES ('1710121007', '荆无命', 'b04f844d6712980d8b6d0e183193c68b');
+INSERT INTO `student` VALUES ('1710121008', '燕十三', 'f086b419d7221c1fc11d98a7bb64e515');
+INSERT INTO `student` VALUES ('1710121009', '司空摘星', 'c0ca0d2c9a0acb33ea0b12c78917338a');
+INSERT INTO `student` VALUES ('1710121010', '西门吹雪', 'd5fcaa219ade4d330281f05ea70aabd1');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -98,6 +98,7 @@ CREATE TABLE `teacher`  (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('1710121000', 'admin', '1710121000', 1);
+INSERT INTO `teacher` VALUES ('1710121000', 'admin', '6d170ca3cb5d8b3cd0af647b2ef6c740', 1);
+INSERT INTO `teacher` VALUES ('1710121088', '马昊然', 'aab6126e4ee72626b0f90f4d8badd945', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
