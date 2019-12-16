@@ -57,4 +57,10 @@ public class Result {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+	@Override
+	public String toString() {
+		return "Result [rid=" + rid + ", eid=" + eid + ", sid=" + sid + ", ip=" + ip + ", submitfile=" + submitfile
+				+ ", grade=" + grade + ", exam=" + exam + ", student=" + student + "]";
+	}
+	
 }

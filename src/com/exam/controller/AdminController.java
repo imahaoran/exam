@@ -1,16 +1,24 @@
 package com.exam.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.exam.pojo.Exam;
 import com.exam.pojo.PageInfo;
@@ -184,6 +192,54 @@ public class AdminController {
 			}
 		} catch (Exception e) {
 			request.setAttribute("errorCode", "添加失败");
+			return "forward:sManager";
+		}
+	}
+	
+	@RequestMapping("upLoadSExcel")
+	public String upLoadPaper(HttpServletRequest request,MultipartFile file) {
+		int alRow = 0,suRow = 0;
+		try {
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file.getInputStream());
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+            int maxRow = sheet.getLastRowNum();
+            alRow = maxRow + 1;
+            System.out.println("总行数为：" + maxRow);
+            for (int row = 0; row <= maxRow; row++) {
+            	Student student = new Student();
+                int maxRol = sheet.getRow(row).getLastCellNum();
+                String[] strings = {null,null,null};
+                for (int rol = 0; rol < 3; rol++){
+                	Cell cell = sheet.getRow(row).getCell(rol);
+                	CellType cellType = cell.getCellType();
+                	String cellValue = null;
+                	if(cellType.equals(CellType.NUMERIC)) {
+                		cellValue = new DecimalFormat("#.######").format(sheet.getRow(row).getCell(rol).getNumericCellValue());
+                	}
+                	else {
+                		cellValue = cell.toString();
+					}
+                    strings[rol] = cellValue;
+                }
+                student.setSid(strings[0]);
+                student.setSname(strings[1]);
+                student.setSpwd(DigestUtils.md5DigestAsHex(strings[2].getBytes()));
+                try {
+                	studentService.insertStudent(student);
+                	suRow += 1;
+				} catch (Exception e) {
+					suRow += 0;
+				}
+            }
+            if(alRow == suRow) {
+            	return "forward:sManager";
+            }else {
+            	request.setAttribute("errorCode2", "导入数据（"+ suRow +"/"+ alRow +"）");
+    			return "forward:sManager";
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorCode2", "上传失败");
 			return "forward:sManager";
 		}
 	}

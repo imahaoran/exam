@@ -30,13 +30,16 @@
         <div class="card bg-light mt-5">
             <div class="card-body">
                 <h6 class="mb-3">批量导入：</h6>
-                <form>
+                <form method="post" action="upLoadSExcel2?eid=${requestScope.exam.eid}" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-group col-8">
-                            <input style="width: auto;" type="file" id="myFile" name="filename">
+                            <input style="width: auto;" type="file" id="myFile" name="file">
                         </div>
                         <div class="input-group col-2">
-                            <input type="submit" class="btn btn-sm bg-success text-white form-control" value="批量导入">
+                            <input type="submit" class="btn btn-sm bg-success text-white form-control" value="提交">
+                        </div>
+                        <div class="input-group col-2">
+                            <div class="errorTip">${requestScope.errorCode2}</div>
                         </div>
                     </div>
                 </form>

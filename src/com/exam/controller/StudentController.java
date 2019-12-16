@@ -2,9 +2,11 @@ package com.exam.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -128,7 +130,21 @@ public class StudentController {
 	}
 	
 	
-	
+	@RequestMapping("getInfo")
+	public void getInfo(HttpServletRequest request,HttpServletResponse response) {
+		String message = "info"+request.getParameter("eid");
+		ServletContext servletContext = request.getServletContext();
+		StringBuilder messages = (StringBuilder)servletContext.getAttribute(message);
+		if(messages==null) {
+			messages = new StringBuilder();
+		}
+		try {
+			PrintWriter out = response.getWriter();
+			out.write(messages.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

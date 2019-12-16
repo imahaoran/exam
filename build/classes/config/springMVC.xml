@@ -71,7 +71,6 @@
 			<mvc:mapping path="/examStart"/>
 			<mvc:mapping path="/examStatus"/>
 			<mvc:mapping path="/sendInfo"/>
-			<mvc:mapping path="/getInfo"/>
 			<mvc:mapping path="/examFinish"/>
 			<mvc:mapping path="/downloadPapers"/>
 			<mvc:mapping path="/grade"/>
@@ -88,6 +87,7 @@
 			<mvc:mapping path="/examming"/>
 			<mvc:mapping path="/download"/>
 			<mvc:mapping path="/upload"/>
+			<mvc:mapping path="/getInfo"/>
 			<mvc:mapping path="/sPwd"/>
 			<bean class="com.exam.interceptor.StudentInterceptor"></bean>
 		</mvc:interceptor>

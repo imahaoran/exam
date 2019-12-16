@@ -22,5 +22,9 @@ public class Student {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
+	@Override
+	public String toString() {
+		return "Student [sid=" + sid + ", sname=" + sname + ", spwd=" + spwd + "]";
+	}
 	
 }

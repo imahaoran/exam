@@ -3,6 +3,7 @@ package com.exam.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -152,6 +157,7 @@ public class TeacherController{
 		request.setAttribute("results", results);
 		return "teacher_import";
 	}
+	
 	@RequestMapping("addResult")
 	public String addStudent(HttpServletRequest request) {
 		int eid = Integer.parseInt(request.getParameter("eid"));
@@ -181,6 +187,66 @@ public class TeacherController{
 		}else {
 			request.setAttribute("errorCode", "无此学生");
 			request.setAttribute("eid", eid);
+			return "forward:importStudent";
+		}
+	}
+	@RequestMapping("upLoadSExcel2")
+	public String upLoadSExcel2(HttpServletRequest request,MultipartFile file) {
+		int eid = Integer.parseInt(request.getParameter("eid"));
+		int alRow = 0,suRow = 0;
+		try {
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file.getInputStream());
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+            int maxRow = sheet.getLastRowNum();
+            alRow = maxRow + 1;
+            for (int row = 0; row <= maxRow; row++) {
+            	String sid = null;
+            	String sname = null;
+                int maxRol = sheet.getRow(row).getLastCellNum();
+                String[] strings = {null,null};
+                for (int rol = 0; rol < 2; rol++){
+                	Cell cell = sheet.getRow(row).getCell(rol);
+                	CellType cellType = cell.getCellType();
+                	String cellValue = null;
+                	if(cellType.equals(CellType.NUMERIC)) {
+                		cellValue = new DecimalFormat("#.######").format(sheet.getRow(row).getCell(rol).getNumericCellValue());
+                	}
+                	else {
+                		cellValue = cell.toString();
+					}
+                    strings[rol] = cellValue;
+                }
+                sid = strings[0];
+                sname = strings[1];
+                Student student = studentService.selectStudentById(sid);
+        		if(student!=null&&student.getSname().equals(sname)) {
+        			Result r = resultService.selectBySE(sid, eid);
+        			if(r!=null) {
+        				suRow += 0;
+        			}else {
+        				Result result = new Result();
+            			result.setEid(eid);
+            			result.setSid(sid);
+            			try {
+            				resultService.insertResult(result);
+            				suRow += 1;
+            			} catch (Exception e) {
+            				suRow += 0;
+            			}
+					}
+        		}else {
+        			suRow += 0;
+        		}
+            }
+            if(alRow == suRow) {
+            	return "forward:importStudent";
+            }else {
+            	request.setAttribute("errorCode2", "导入数据（"+ suRow +"/"+ alRow +"）");
+    			return "forward:importStudent";
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorCode2", "上传失败");
 			return "forward:importStudent";
 		}
 	}
@@ -229,21 +295,7 @@ public class TeacherController{
 		messages.append(teacher.getTname()+"老师："+request.getParameter("info")+"\n"); 
 		return "redirect:examStatus"+"?eid="+request.getParameter("eid");
 	}
-	@RequestMapping("getInfo")
-	public void getInfo(HttpServletRequest request,HttpServletResponse response) {
-		String message = "info"+request.getParameter("eid");
-		ServletContext servletContext = request.getServletContext();
-		StringBuilder messages = (StringBuilder)servletContext.getAttribute(message);
-		if(messages==null) {
-			messages = new StringBuilder();
-		}
-		try {
-			PrintWriter out = response.getWriter();
-			out.write(messages.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	@RequestMapping("examFinish")
 	public String examFinish(HttpServletRequest request) {
 		int eid = Integer.parseInt(request.getParameter("eid"));

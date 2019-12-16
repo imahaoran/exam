@@ -29,5 +29,9 @@ public class Teacher {
 	public void setTadmin(boolean tadmin) {
 		this.tadmin = tadmin;
 	}
+	@Override
+	public String toString() {
+		return "Teacher [tid=" + tid + ", tname=" + tname + ", tpwd=" + tpwd + ", tadmin=" + tadmin + "]";
+	}
 	
 }

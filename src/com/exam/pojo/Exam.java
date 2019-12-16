@@ -85,4 +85,11 @@ public class Exam {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
+	@Override
+	public String toString() {
+		return "Exam [eid=" + eid + ", ename=" + ename + ", etime=" + etime + ", eautostart=" + eautostart
+				+ ", eactive=" + eactive + ", efinish=" + efinish + ", earchive=" + earchive + ", ecleared=" + ecleared
+				+ ", tid=" + tid + ", epaper=" + epaper + ", etype=" + etype + ", teacher=" + teacher + "]";
+	}
+	
 }
