@@ -20,49 +20,49 @@
 
 登录
 
-![image-20201010175503539](C:\Users\mahaoran\Desktop\0000\img\image-20201010175503539.png)
+![image-20201010175503539](https://github.com/imahaoran/exam/blob/master/img/image-20201010175503539.png)
 
 教师端
 
-![image-20201010175841655](C:\Users\mahaoran\Desktop\0000\img\image-20201010175841655.png)
+![image-20201010175841655](https://github.com/imahaoran/exam/blob/master/img/image-20201010175841655.png)
 
 考试管理（在此创建考试）
 
-![image-20201010195011378](C:\Users\mahaoran\Desktop\0000\img\image-20201010195011378.png)
+![image-20201010195011378](https://github.com/imahaoran/exam/blob/master/img/image-20201010195011378.png)
 
 编辑考试信息
 
-![image-20201010194916969](C:\Users\mahaoran\Desktop\0000\img\image-20201010194916969.png)
+![image-20201010194916969](https://github.com/imahaoran/exam/blob/master/img/image-20201010194916969.png)
 
 添加考生信息
 
-![image-20201010194824413](C:\Users\mahaoran\Desktop\0000\img\image-20201010194824413.png)
+![image-20201010194824413](https://github.com/imahaoran/exam/blob/master/img/image-20201010194824413.png)
 
 查看考试状态
 
-![image-20201010200955913](C:\Users\mahaoran\Desktop\0000\img\image-20201010200955913.png)
+![image-20201010200955913](https://github.com/imahaoran/exam/blob/master/img/image-20201010200955913.png)
 
 录入成绩
 
-![image-20201010201157141](C:\Users\mahaoran\Desktop\0000\img\image-20201010201157141.png)
+![image-20201010201157141](https://github.com/imahaoran/exam/blob/master/img/image-20201010201157141.png)
 
 学生端
 
-![image-20201010195249676](C:\Users\mahaoran\Desktop\0000\img\image-20201010195249676.png)
+![image-20201010195249676](https://github.com/imahaoran/exam/blob/master/img/image-20201010195249676.png)
 
 考试中
 
-![image-20201010195834159](C:\Users\mahaoran\Desktop\0000\img\image-20201010195834159.png)
+![image-20201010195834159](https://github.com/imahaoran/exam/blob/master/img/image-20201010195834159.png)
 
 查看成绩
 
-![image-20201010201423513](C:\Users\mahaoran\Desktop\0000\img\image-20201010201423513.png)
+![image-20201010201423513](https://github.com/imahaoran/exam/blob/master/img/image-20201010201423513.png)
 
 管理员端
 
-![image-20201010201534912](C:\Users\mahaoran\Desktop\0000\img\image-20201010201534912.png)
+![image-20201010201534912](https://github.com/imahaoran/exam/blob/master/img/image-20201010201534912.png)
 
-![image-20201010201550842](C:\Users\mahaoran\Desktop\0000\img\image-20201010201550842.png)
+![image-20201010201550842](https://github.com/imahaoran/exam/blob/master/img/image-20201010201550842.png)
 
-![image-20201010201611661](C:\Users\mahaoran\Desktop\0000\img\image-20201010201611661.png)
+![image-20201010201611661](https://github.com/imahaoran/exam/blob/master/img/image-20201010201611661.png)
 
